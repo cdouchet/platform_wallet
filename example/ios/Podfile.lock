@@ -1,0 +1,28 @@
+PODS:
+  - Flutter (1.0.0)
+  - integration_test (0.0.1):
+    - Flutter
+  - platform_wallet (0.0.1):
+    - Flutter
+
+DEPENDENCIES:
+  - Flutter (from `Flutter`)
+  - integration_test (from `.symlinks/plugins/integration_test/ios`)
+  - platform_wallet (from `.symlinks/plugins/platform_wallet/ios`)
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: Flutter
+  integration_test:
+    :path: ".symlinks/plugins/integration_test/ios"
+  platform_wallet:
+    :path: ".symlinks/plugins/platform_wallet/ios"
+
+SPEC CHECKSUMS:
+  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
+  integration_test: 13825b8a9334a850581300559b8839134b124670
+  platform_wallet: 056195d438b2d93cd2cb4c3dd6e18e9321d2dd37
+
+PODFILE CHECKSUM: 819463e6a0290f5a72f145ba7cde16e8b6ef0796
+
+COCOAPODS: 1.15.2
