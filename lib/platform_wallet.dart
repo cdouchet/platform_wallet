@@ -4,19 +4,6 @@
 // same directory. You can also find a detailed instruction on how to add
 // platforms in the `pubspec.yaml` at
 // https://flutter.dev/docs/development/packages-and-plugins/developing-packages#plugin-platforms.
+library platform_wallet;
 
-import 'platform_wallet_platform_interface.dart';
-
-class PlatformWallet {
-  static final PlatformWallet instance = PlatformWallet._internal();
-
-  PlatformWallet._internal();
-
-  Future<String?> getPlatformVersion() {
-    return PlatformWalletPlatform.instance.getPlatformVersion();
-  }
-
-  Future<String?> myTest(String input) {
-    return PlatformWalletPlatform.instance.myTest(input);
-  }
-}
+export "models/exports.dart";

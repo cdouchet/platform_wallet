@@ -33,19 +33,14 @@ public class PlatformWalletPlugin: NSObject, FlutterPlugin {
        let pass = try PKPass(data: passData)
 
        let passLibrary = PKPassLibrary()
-
-       if !passLibrary.containsPass(pass) {
-           passLibrary.addPasses([pass]) { (result) in
-               if result == PKPassLibraryAddPassesStatus.didAddPasses {
-               print("successfully added pass")
-             } else {
-               print("Error adding pass: \(result)")
-             }
-         }
-        return "done"
-       } else {
-         return PlatformWalletException.alreadyInWallet().toJsonString()
+       guard let pkvc = PKAddPassesViewController(pass: pass) else {
+           return PlatformWalletException.unknow().toJsonString()
        }
+       guard let rvc = UIApplication.shared.keyWindow?.rootViewController else {
+           return PlatformWalletException.unknow().toJsonString()
+       }
+       rvc.present(pkvc, animated: true)
+        return "done"
      } catch {
        return PlatformWalletException.new(error.localizedDescription).toJsonString()
      }

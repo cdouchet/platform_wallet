@@ -30,15 +30,15 @@ class _MyAppState extends State<MyApp> {
     // Platform messages may fail, so we use a try/catch PlatformException.
     // We also handle the message potentially returning null.
     try {
-      platformVersion = await PlatformWallet.instance.getPlatformVersion() ??
-          'Unknown platform version';
+      // platformVersion = await PlatformWallet.instance.getPlatformVersion() ??
+      'Unknown platform version';
     } on PlatformException {
       platformVersion = 'Failed to get platform version.';
     }
 
     try {
-      final didi = await PlatformWallet.instance.myTest('Bingus');
-      print("Result of didi: $didi");
+      // final didi = await PlatformWallet.instance.myTest('Bingus');
+      // print("Result of didi: $didi");
     } on PlatformException {
       print("Big error");
     }
@@ -48,9 +48,9 @@ class _MyAppState extends State<MyApp> {
     // setState to update our non-existent appearance.
     if (!mounted) return;
 
-    setState(() {
-      _platformVersion = platformVersion;
-    });
+    // setState(() {
+    //   _platformVersion = platformVersion;
+    // });
   }
 
   @override
@@ -61,7 +61,16 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Plugin example app'),
         ),
         body: Center(
-          child: Text('Running on: $_platformVersion\n'),
+          child: ElevatedButton(
+            onPressed: () async {
+              final pass = await PKPass.fromUrl(
+                Uri.parse(
+                    "https://connect-api-rec.onepoint.cloud/wallet/qr/LMZGZmzAAWN?returnType=binary&is_google=false"),
+              );
+              pass.save();
+            },
+            child: Text("Save wallet"),
+          ),
         ),
       ),
     );

@@ -22,10 +22,10 @@ void main() {
     expect(initialPlatform, isInstanceOf<MethodChannelPlatformWallet>());
   });
 
-  test('getPlatformVersion', () async {
-    MockPlatformWalletPlatform fakePlatform = MockPlatformWalletPlatform();
-    PlatformWalletPlatform.instance = fakePlatform;
+  // test('getPlatformVersion', () async {
+  //   MockPlatformWalletPlatform fakePlatform = MockPlatformWalletPlatform();
+  //   PlatformWalletPlatform.instance = fakePlatform;
 
-    expect(await PlatformWallet.instance.getPlatformVersion(), '42');
-  });
+  //   expect(await PlatformWallet.instance.getPlatformVersion(), '42');
+  // });
 }
