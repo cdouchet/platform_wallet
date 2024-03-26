@@ -15,6 +15,8 @@ public class PlatformWalletPlugin: NSObject, FlutterPlugin {
       result("iOS " + UIDevice.current.systemVersion)
      case "addPkPass":
        result(addPkPass(call.arguments as! FlutterStandardTypedData))
+    case "isWalletApiAvailable":
+        result(isWalletApiAvailable())
     case "myTest":
       result(myTest(call.arguments as! String))
     default:
@@ -26,6 +28,10 @@ public class PlatformWalletPlugin: NSObject, FlutterPlugin {
     print("myTest from swift: " + didi)
     return didi
   }
+    
+    private func isWalletApiAvailable() -> Bool {
+        return PKAddPassesViewController.canAddPasses()
+    }
 
    private func addPkPass(_ bytes: FlutterStandardTypedData) -> String {
      do {

@@ -6,4 +6,17 @@
 // https://flutter.dev/docs/development/packages-and-plugins/developing-packages#plugin-platforms.
 library platform_wallet;
 
+import 'package:platform_wallet/method_channel.dart';
+
 export "models/exports.dart";
+
+class PlatformWallet {
+  static final PlatformWallet instance = PlatformWallet._internal();
+
+  PlatformWallet._internal();
+
+  Future<bool> isWalletApiAvailable() async {
+    return (await methodChannel.invokeMethod<bool>("isWalletApiAvailable")) ??
+        false;
+  }
+}

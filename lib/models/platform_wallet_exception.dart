@@ -18,5 +18,14 @@ class PlatformWalletException implements Exception {
         description: json["description"],
       );
 
-  String toString() => "PlatformWalletException of kind $kind:\n $error.\n Details: $description";
+  factory PlatformWalletException.invalidUrl(String description) =>
+      PlatformWalletException(
+        kind: PlatformWalletExceptionKind.invalidUrl,
+        error: "Invalid Url",
+        description: description,
+      );
+
+  @override
+  String toString() =>
+      "PlatformWalletException of kind $kind:\n $error.\n Details: $description";
 }

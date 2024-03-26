@@ -1,4 +1,6 @@
-package com.example.platform_wallet
+package net.doggo_saloon.platform_wallet.platform_wallet
+
+import androidx.annotation.NonNull
 
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.MethodCall
@@ -20,10 +22,6 @@ class PlatformWalletPlugin: FlutterPlugin, MethodCallHandler {
   }
 
   override fun onMethodCall(call: MethodCall, result: Result) {
-    when (call.method) {
-      "addGoogleWallet" -> result.success()
-      else -> result.notImplemented()
-    }
     if (call.method == "getPlatformVersion") {
       result.success("Android ${android.os.Build.VERSION.RELEASE}")
     } else {

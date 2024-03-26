@@ -1,0 +1,4 @@
+enum GooglePassType {
+  url,
+  jwt;
+}

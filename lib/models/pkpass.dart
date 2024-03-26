@@ -20,20 +20,23 @@ class PKPass {
   factory PKPass.fromBytes(Uint8List data) => PKPass._(data: data);
 
   /// Creates a new PKPass object from a given [Uri].
-  /// Additional headers can be sent, with the [headers] parameter.
+  /// Additional headers can be sent with the [headers] parameter.
   ///
   /// Will throw a [DioException] on network error
   ///
   /// Example:
   /// ```dart
   /// final Uri uri = Uri.parse("https://example.com/pass.pkpass");
-  /// final PKPass pass = await PKPass.fromUrl(
-  ///   uri,
-  ///   headers: {
-  ///     "Authorization": "Bearer ..."
-  ///   },
-  /// );
-  /// pass.save();
+  /// try {
+  ///   final PKPass pass = await PKPass.fromUrl(
+  ///     uri,
+  ///     headers: {"Authorization": "Bearer ..."},
+  ///   );
+  ///   pass.save();
+  /// } on DioException catch (e) {
+  ///   print("Something went wrong...");
+  ///   print(e);
+  /// }
   /// ```
   static Future<PKPass> fromUrl(Uri url,
       {Map<String, String?>? headers}) async {
