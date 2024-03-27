@@ -1,5 +1,5 @@
 name: platform_wallet
-description: "A new Flutter plugin project."
+description: "Save your wallet passes on both iOS & Android"
 version: 1.0.0
 repository: https://github.com/cdouchet/platform_wallet
 
