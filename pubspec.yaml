@@ -1,6 +1,6 @@
 name: platform_wallet
 description: "Save your wallet passes on both iOS & Android"
-version: 1.0.0
+version: 1.0.1
 repository: https://github.com/cdouchet/platform_wallet
 
 platforms:
