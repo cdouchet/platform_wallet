@@ -1,7 +1,7 @@
 name: platform_wallet
 description: "A new Flutter plugin project."
 version: 1.0.0
-homepage:
+repository: https://github.com/cdouchet/platform_wallet
 
 environment:
   sdk: '>=3.3.2 <4.0.0'
