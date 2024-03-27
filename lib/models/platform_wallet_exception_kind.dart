@@ -1,6 +1,7 @@
 enum PlatformWalletExceptionKind {
   alreadyInWallet,
   invalidUrl,
+  notAvailable,
   unknown;
 
   static PlatformWalletExceptionKind fromString(String input) {
@@ -9,6 +10,8 @@ enum PlatformWalletExceptionKind {
         return PlatformWalletExceptionKind.alreadyInWallet;
       case "invalid_url":
         return PlatformWalletExceptionKind.invalidUrl;
+      case "not_available":
+        return PlatformWalletExceptionKind.notAvailable;
       default:
         return PlatformWalletExceptionKind.unknown;
     }

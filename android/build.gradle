@@ -2,7 +2,7 @@ group 'net.doggo_saloon.platform_wallet'
 version '1.0-SNAPSHOT'
 
 buildscript {
-    ext.kotlin_version = '1.9.23'
+    ext.kotlin_version = '1.7.10'
     repositories {
         google()
         mavenCentral()
@@ -49,14 +49,10 @@ android {
         minSdkVersion 19
     }
 
-    repositories {
-        mavenCentral()
-    }
-
     dependencies {
         testImplementation 'org.jetbrains.kotlin:kotlin-test'
         testImplementation 'org.mockito:mockito-core:5.0.0'
-        implementation 'com.google.android.gms:play-services-pay:16.4.0'
+        implementation "com.google.android.gms:play-services-pay:16.4.0"
     }
 
     testOptions {

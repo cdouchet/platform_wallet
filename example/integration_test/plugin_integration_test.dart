@@ -15,11 +15,8 @@ import 'package:platform_wallet/platform_wallet.dart';
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  // testWidgets('getPlatformVersion test', (WidgetTester tester) async {
-    // final PlatformWallet plugin = PlatformWallet();
-    // final String? version = await PlatformWallet.instance.getPlatformVersion();
+  testWidgets('getPlatformVersion test', (WidgetTester tester) async {
     // The version string depends on the host platform running the test, so
     // just assert that some non-empty string is returned.
-    // expect(version?.isNotEmpty, true);
-  // });
+  });
 }

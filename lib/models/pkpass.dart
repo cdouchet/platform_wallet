@@ -5,7 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:platform_wallet/platform_wallet.dart';
 import '../method_channel.dart';
 
-/// PKPass is the object to interact with Apple's wallet.
+/// [PKPass] is the object to interact with Apple's wallet.
 /// Only works on iOS, otherwise will throw an assertion error when created.
 ///
 /// Call static functions PKPass.fromBytes or PKPass.fromUrl to build a new PKPass.

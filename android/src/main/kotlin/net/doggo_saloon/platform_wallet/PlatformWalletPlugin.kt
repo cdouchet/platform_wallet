@@ -1,5 +1,6 @@
-package com.example.platform_wallet
+package net.doggo_saloon.platform_wallet
 
+import android.util.Log
 import com.google.android.gms.pay.Pay
 import com.google.android.gms.pay.PayApiAvailabilityStatus
 import com.google.android.gms.pay.PayClient
@@ -11,6 +12,8 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 /** PlatformWalletPlugin */
 class PlatformWalletPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
@@ -33,32 +36,41 @@ class PlatformWalletPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
   }
 
   override fun onDetachedFromActivityForConfigChanges() {
-    TODO("Not yet implemented")
+
   }
 
   override fun onReattachedToActivityForConfigChanges(binding: ActivityPluginBinding) {
-    TODO("Not yet implemented")
+
   }
 
   override fun onDetachedFromActivity() {
-    TODO("Not yet implemented")
+
   }
 
-  private fun isWalletApiAvailable(): Boolean {
-    var task = walletClient.getPayApiAvailabilityStatus(PayClient.RequestType.SAVE_PASSES)
-    if (!task.isSuccessful) {
-      return false
+  private fun isWalletApiAvailable(callback: (Boolean) -> Unit) {
+    walletClient.getPayApiAvailabilityStatus(PayClient.RequestType.SAVE_PASSES)
+      .addOnCompleteListener {task ->
+        if (task.isSuccessful) {
+          val isAvailable = task.result == PayApiAvailabilityStatus.AVAILABLE
+          Log.d("TAG", "isAvailable $isAvailable")
+          callback(isAvailable)
+        } else {
+          callback(false)
+        }
+      }
+  }
+
+  private fun addGoogleWallet(token: String): String {
+    if (activity == null) {
+      return "unknown"
     }
-    return task.result == PayApiAvailabilityStatus.AVAILABLE
-  }
-
-  private fun addGoogleWallet(token: String) {
     activity?.let { walletClient.savePassesJwt(token, it, 0) }
+    return "success"
   }
 
   override fun onMethodCall(call: MethodCall, result: Result) {
     when (call.method) {
-      "isWalletApiAvailable" -> result.success(isWalletApiAvailable())
+      "isWalletApiAvailable" -> isWalletApiAvailable { res -> result.success(res) }
       "addGoogleWallet" -> result.success(addGoogleWallet(call.arguments as String))
       else -> result.notImplemented()
     }

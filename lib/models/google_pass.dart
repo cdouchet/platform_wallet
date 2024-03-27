@@ -7,6 +7,10 @@ import 'package:platform_wallet/method_channel.dart';
 import 'package:platform_wallet/models/google_pass_type.dart';
 import 'package:platform_wallet/models/platform_wallet_exception.dart';
 
+/// [GooglePass] is the object to interact with Google's wallet.
+/// Only works on Android, otherwise will throw an assertion error when created.
+///
+/// Call static functions GooglePass.fromToken or GooglePass.fromUrl to build a new GooglePass.
 class GooglePass {
   final GooglePassType type;
   final String token;
@@ -23,30 +27,67 @@ class GooglePass {
       if (segments.isNotEmpty) {
         final last = segments.last;
         if (last.isEmpty) {
-          throw PlatformWalletException.invalidUrl("Token not found in url. Given url was: $path");
+          throw PlatformWalletException.invalidUrl(
+              "Token not found in url. Given url was: $path");
         }
         return last;
       }
     }
-    throw PlatformWalletException.invalidUrl("Uri is empty. Given url was: $path");
+    throw PlatformWalletException.invalidUrl(
+        "Uri is empty. Given url was: $path");
   }
 
+  /// Creates a new [GooglePass] from a google pay url.
+  ///
+  /// Will throw a [PlatformWalletException] on invalid url, or if the wallet API is not available.
+  ///
+  /// Example:
+  /// ```dart
+  /// final Uri uri = Uri.parse("https://pay.google.com/gp/v/save/ey...");
+  /// try {
+  ///   final GooglePass pass = GooglePass.fromUrl(uri);
+  ///   pass.save();
+  /// } on PlatformWalletException catch (e) {
+  ///   print("Something went wrong...");
+  ///   print(e);
+  /// }
+  /// ```
   factory GooglePass.fromUrl(Uri uri) {
     final token = _parseToken(uri);
     return GooglePass._(type: GooglePassType.url, token: token);
   }
-
+  
+  /// Creates a new [GooglePass] from a given token.
+  /// 
+  /// Will throw a [PlatformWalletException] if the wallet API is not available.
+  /// 
+  /// Example:
+  /// ```dart
+  /// const String token = "ey...";
+  /// try {
+  ///   final GooglePass pass = GooglePass.fromToken(token);
+  ///   pass.save();
+  /// } on PlatformWalletException catch (e) {
+  ///   print("Something went wrong...");
+  ///   print(e);
+  /// }
+  /// ```
   factory GooglePass.fromToken(String token) {
     return GooglePass._(type: GooglePassType.jwt, token: token);
   }
 
+  /// Saves the pass, opening the wallet's app on the mobile.
   Future<void> save() async {
-    final result = await methodChannel.invokeMethod<String?>("addGoogleWallet");
-    if (result == null) {
+    final result =
+        await methodChannel.invokeMethod<String?>("addGoogleWallet", token);
+    if (result == null || result == "success") {
       return;
     }
     if (result.startsWith("{")) {
       throw PlatformWalletException.fromJson(jsonDecode(result));
+    }
+    if (result == "unknown") {
+      throw PlatformWalletException.unknown();
     }
   }
 }

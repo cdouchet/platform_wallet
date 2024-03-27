@@ -10,6 +10,13 @@ import 'package:platform_wallet/method_channel.dart';
 
 export "models/exports.dart";
 
+/// PlatformWallet is an utility singleton object.
+/// 
+/// To check whether the wallet api is available on the device, use:
+/// 
+/// ```dart
+/// PlatformWallet.instance.isWalletApiAvailable()
+/// ```
 class PlatformWallet {
   static final PlatformWallet instance = PlatformWallet._internal();
 
