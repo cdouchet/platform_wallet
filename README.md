@@ -1,15 +1,48 @@
 # platform_wallet
 
-A new Flutter plugin project.
+Save your wallet passes on both iOS & Android.
 
-## Getting Started
+## Why this plugin ?
 
-This project is a starting point for a Flutter
-[plug-in package](https://flutter.dev/developing-packages/),
-a specialized package that includes platform-specific implementation code for
-Android and/or iOS.
+The plugin add_to_wallet, used to save passes on iOS, blocks builds on Android. Since I needed to build on both platforms, I made this simple plugin to allow both platforms to use passes and allow builds.
 
-For help getting started with Flutter development, view the
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Installation
 
+Install this plugin by running
+```
+flutter pub add platform_wallet
+```
+
+## Usage
+
+You can check if the Wallet API is available on the device :
+```dart
+PlatformWallet.instance.isWalletApiAvailable();
+```
+
+### iOS
+```dart
+final Uri uri = Uri.parse("https://example.com/pass.pkpass");
+try {
+	final PKPass pass = await PKPass.fromUrl(
+		uri,
+		headers: {"Authorization": "Bearer ..."},
+	);
+	pass.save();
+} on PlatformWalletException catch (e) {
+	print("Something went wrong...");
+	print(e);
+}
+```
+
+### Android
+```dart
+final Uri uri = Uri.parse("https://pay.google.com/gp/v/save/ey...");  
+try {
+	final GooglePass pass = GooglePass.fromUrl(uri);
+	pass.save();
+} on PlatformWalletException catch (e) {
+	print("Something went wrong...");
+	print(e);
+}
+```
