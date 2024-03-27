@@ -3,6 +3,10 @@ description: "Save your wallet passes on both iOS & Android"
 version: 1.0.0
 repository: https://github.com/cdouchet/platform_wallet
 
+platforms:
+  ios:
+  android:
+
 environment:
   sdk: '>=3.3.2 <4.0.0'
   flutter: '>=3.3.0'
@@ -10,7 +14,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  plugin_platform_interface: ^2.0.2
   dio: ^5.4.2
 
 dev_dependencies:
