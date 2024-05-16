@@ -56,11 +56,11 @@ class GooglePass {
     final token = _parseToken(uri);
     return GooglePass._(type: GooglePassType.url, token: token);
   }
-  
+
   /// Creates a new [GooglePass] from a given token.
-  /// 
+  ///
   /// Will throw a [PlatformWalletException] if the wallet API is not available.
-  /// 
+  ///
   /// Example:
   /// ```dart
   /// const String token = "ey...";
